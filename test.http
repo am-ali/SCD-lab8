@@ -1,0 +1,62 @@
+### Register a new user
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "id": "user1",
+    "name": "John Doe",
+    "password": "password123"
+}
+
+### Register another user
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "id": "user2",
+    "name": "Jane Smith",
+    "password": "password456"
+}
+
+### Create an event (Meeting)
+POST http://localhost:3000/events
+Content-Type: application/json
+user-id: user1
+
+{
+    "name": "Team Meeting",
+    "description": "Weekly sync with the development team",
+    "date": "2024-03-20T10:00:00Z",
+    "category": "Meeting"
+}
+
+### Create an event (Birthday)
+POST http://localhost:3000/events
+Content-Type: application/json
+user-id: user1
+
+{
+    "name": "Birthday Party",
+    "description": "Alice's birthday celebration",
+    "date": "2024-04-15T18:00:00Z",
+    "category": "Birthday"
+}
+
+### Get all events for user1
+GET http://localhost:3000/events
+user-id: user1
+
+### Get all events for user2 (should be empty)
+GET http://localhost:3000/events
+user-id: user2
+
+### Get events filtered by category (Meetings)
+GET http://localhost:3000/events?category=Meeting
+user-id: user1
+
+### Try to access without authentication (should fail)
+GET http://localhost:3000/events
+
+### Try to access with invalid user (should fail)
+GET http://localhost:3000/events
+user-id: invalid-user 
